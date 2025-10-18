@@ -91,6 +91,19 @@ export const obtenerSesionesPorPaquete = async (req, res) => {
     }
 };
 
+// Obtener todas las sesiones de todos los paquetes
+export const obtenerTodasLasSesiones = async (req, res) => {
+  try {
+    const sesiones = await Sesion.find()
+      .populate("paquete", "nombre_paquete fecha_inicio fecha_fin") // trae info del paquete
+      .populate("ninio", "nombre dni"); // trae info del niño
+    
+    res.status(200).json(sesiones);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al obtener las sesiones" });
+  }
+};
 /**
  * Eliminar todas las sesiones de un paquete
  */
