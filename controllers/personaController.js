@@ -52,3 +52,19 @@ export const eliminarPersona = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+// 🔎 Buscar persona por DNI
+export const buscarPersonaPorDni = async (req, res) => {
+  try {
+    const { dni } = req.params;
+    const persona = await Persona.findOne({ dni });
+
+    if (!persona) {
+      return res.status(404).json({ error: "Persona no encontrada" });
+    }
+
+    res.json(persona);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -122,3 +122,14 @@ export const eliminarSesionesPorPaquete = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+// DELETE /sesiones -> elimina todas las sesiones
+// Controlador para eliminar todas las sesiones
+// controllers/sesionController.js
+export const eliminarTodasLasSesiones = async (req, res) => {
+  try {
+    await Sesion.deleteMany({});
+    res.status(200).json({ message: 'Todas las sesiones han sido eliminadas' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -4,7 +4,8 @@ import {
   listarPersonas,
   obtenerPersona,
   actualizarPersona,
-  eliminarPersona
+  eliminarPersona,
+  buscarPersonaPorDni
 } from "../controllers/personaController.js";
 
 const router = express.Router();
@@ -23,6 +24,9 @@ router.put("/:id", actualizarPersona);
 
 // DELETE → eliminar
 router.delete("/:id", eliminarPersona);
+
+router.get("/dni/:dni", buscarPersonaPorDni);
+
 
 export default router;
 
