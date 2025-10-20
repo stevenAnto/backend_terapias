@@ -1,5 +1,7 @@
 import Sesion from "../models/Sesion.js";
 import Paquete from "../models/Paquete.js";
+import Persona from "../models/Persona.js";
+
 
 
 /**
@@ -133,3 +135,30 @@ export const eliminarTodasLasSesiones = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const obtenerSesionesPorDniNinio = async (req, res) => {
+  try {
+    const { dni } = req.params;
+
+    // Primero encontramos al niño por su DNI
+    const ninio = await Persona.findOne({ dni });
+    console.log("ninio",ninio);
+    if (!ninio) {
+      return res.status(404).json({ mensaje: "Niño no encontrado con ese DNI" });
+    }
+
+    // Luego buscamos las sesiones asociadas a ese niño
+    const sesiones = await Sesion.find({ ninio: ninio._id })
+      .populate("ninio", "nombre dni")
+      .populate("paquete", "nombre_paquete fecha_inicio fecha_fin");
+
+    if (sesiones.length === 0) {
+      return res.status(404).json({ mensaje: "No se encontraron sesiones para este DNI" });
+    }
+
+    res.status(200).json(sesiones);
+  } catch (error) {
+    console.error("Error al obtener sesiones por DNI:", error);
+    res.status(500).json({ error: "Error al obtener las sesiones del niño" });
+  }
+};
+
