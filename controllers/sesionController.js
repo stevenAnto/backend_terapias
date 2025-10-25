@@ -180,3 +180,31 @@ export const obtenerSesionesPorDniNinio = async (req, res) => {
   }
 };
 
+
+/**
+ * Actualizar solo la asistencia de una sesión
+ */
+export const actualizarAsistencia = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { asistio } = req.body;
+
+    if (typeof asistio !== "boolean") {
+      return res.status(400).json({ error: "El campo 'asistio' debe ser true o false" });
+    }
+
+    const sesion = await Sesion.findById(id);
+    if (!sesion) {
+      return res.status(404).json({ error: "Sesión no encontrada" });
+    }
+
+    sesion.asistio = asistio;
+    await sesion.save();
+
+    res.json(sesion);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+

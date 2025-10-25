@@ -130,3 +130,35 @@ export const obtenerPaquetePorId = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Agregar en tu archivo de controladores (paqueteController.js)
+
+/**
+ * Eliminar un paquete por ID
+ */
+export const eliminarPaquete = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Buscar el paquete
+    const paquete = await Paquete.findById(id);
+    if (!paquete) {
+      return res.status(404).json({ error: "Paquete no encontrado" });
+    }
+
+    // Eliminar todas las sesiones asociadas al paquete
+    await Sesion.deleteMany({ paquete: id });
+
+    // Eliminar el paquete
+    await Paquete.findByIdAndDelete(id);
+
+    res.json({ 
+      mensaje: "✅ Paquete y sesiones asociadas eliminadas correctamente",
+      paquete_eliminado: paquete 
+    });
+
+  } catch (error) {
+    console.error("Error al eliminar paquete:", error);
+    res.status(500).json({ error: error.message });
+  }
+};

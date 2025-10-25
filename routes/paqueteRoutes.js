@@ -3,6 +3,7 @@ import {
   crearPaquete,
   obtenerPaquetes,
   obtenerPaquetePorId,
+  eliminarPaquete
 } from "../controllers/paqueteController.js";
 
 const router = express.Router();
@@ -10,5 +11,7 @@ const router = express.Router();
 router.post("/", crearPaquete);
 router.get("/", obtenerPaquetes);
 router.get("/:id", obtenerPaquetePorId);
+router.delete('/:id', eliminarPaquete);  // ← Agregar esta ruta
+
 
 export default router;

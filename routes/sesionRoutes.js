@@ -5,7 +5,8 @@ import {
   eliminarSesionesPorPaquete,
   obtenerTodasLasSesiones,
   eliminarTodasLasSesiones,
-  obtenerSesionesPorDniNinio
+  obtenerSesionesPorDniNinio,
+  actualizarAsistencia
 } from "../controllers/sesionController.js";
 
 const router = express.Router();
@@ -17,6 +18,8 @@ router.get("/:paqueteId", obtenerSesionesPorPaquete);
 
 // ✏️ Actualizar una sesión (estado, notas o fecha)
 router.patch("/:id", actualizarSesion);
+router.patch("/sesiones/:id/asistencia", actualizarAsistencia);
+
 
 // Eliminar todas las sesiones de un paquete
 router.delete("/:paqueteId", eliminarSesionesPorPaquete);
