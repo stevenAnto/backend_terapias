@@ -19,65 +19,83 @@ const diasSemanaMap = {
 };
 
 export const actualizarSesion = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { estado, notas } = req.body;
+  try {
+    const { id } = req.params;
+    const { estado, notas, asistio } = req.body;
 
-        const sesion = await Sesion.findById(id);
-        if (!sesion) return res.status(404).json({ error: "Sesión no encontrada" });
+    const sesion = await Sesion.findById(id);
+    if (!sesion) return res.status(404).json({ error: "Sesión no encontrada" });
 
-        // Reprogramar: desplazamos todas las sesiones posteriores
-        if (estado === "reprogramada") {
-            const sesiones = await Sesion.find({ paquete: sesion.paquete }).sort("numero_sesion");
-            const fechas = sesiones.map(s => s.fecha);
-            const index = sesiones.findIndex(s => s._id.equals(sesion._id));
+    // 👉 CASO 1: Reprogramar sesión
+    if (estado === "reprogramado") {
+      // Incrementar contador de reprogramaciones
+      sesion.reprogramaciones = (sesion.reprogramaciones || 0) + 1;
 
-            for (let i = index; i < sesiones.length; i++) {
-                sesiones[i].fecha = fechas[i + 1] || sesiones[i].fecha;
-                sesiones[i].estado = "pendiente";
-                await sesiones[i].save();
-            }
+      // Buscar todas las sesiones del paquete ordenadas
+      const sesiones = await Sesion.find({ paquete: sesion.paquete }).sort("numero_sesion");
 
-            // Obtener paquete
-            const paquete = await Paquete.findById(sesion.paquete);
-            if (!paquete) return res.status(404).json({ error: "Paquete no encontrado" });
+      const index = sesiones.findIndex((s) => s._id.equals(sesion._id));
+      if (index === -1) return res.status(400).json({ error: "Sesión no encontrada en el paquete" });
 
-            // Mapear días a números
-            const diasNumeros = paquete.horarios.map(h => diasSemanaMap[h.dia_semana]);
-            const ultimaSesion = sesiones[sesiones.length - 1];
-            const ultimoDia = ultimaSesion.fecha.getDay();
+      // Obtener el paquete y sus horarios
+      const paquete = await Paquete.findById(sesion.paquete);
+      if (!paquete) return res.status(404).json({ error: "Paquete no encontrado" });
 
-            const siguienteDiaIndex = diasNumeros.findIndex(d => d > ultimoDia);
-            const siguienteDiaNumero = siguienteDiaIndex !== -1 ? diasNumeros[siguienteDiaIndex] : diasNumeros[0];
+      // Mapeo de días disponibles
+      const diasNumeros = paquete.horarios.map((h) => diasSemanaMap[h.dia_semana]);
+      const ultimaSesion = sesiones[sesiones.length - 1];
+      const ultimoDia = ultimaSesion.fecha.getDay();
 
-            let diferencia = (siguienteDiaNumero - ultimoDia + 7) % 7;
-            diferencia = diferencia === 0 ? 7 : diferencia;
+      // Calcular siguiente día hábil según horarios
+      const siguienteDiaIndex = diasNumeros.findIndex((d) => d > ultimoDia);
+      const siguienteDiaNumero =
+        siguienteDiaIndex !== -1 ? diasNumeros[siguienteDiaIndex] : diasNumeros[0];
 
-            const proximaFecha = new Date(ultimaSesion.fecha);
-            proximaFecha.setDate(proximaFecha.getDate() + diferencia);
+      let diferencia = (siguienteDiaNumero - ultimoDia + 7) % 7;
+      diferencia = diferencia === 0 ? 7 : diferencia;
 
-            const horarioObj = paquete.horarios[siguienteDiaIndex !== -1 ? siguienteDiaIndex : 0];
-            const [horas, minutos] = horarioObj.hora.split(":").map(Number);
-            proximaFecha.setHours(horas, minutos, 0, 0);
+      // Nueva fecha para la última sesión
+      const proximaFecha = new Date(ultimaSesion.fecha);
+      proximaFecha.setDate(proximaFecha.getDate() + diferencia);
 
-            ultimaSesion.fecha = proximaFecha;
-            await ultimaSesion.save();
+      const horarioObj = paquete.horarios[siguienteDiaIndex !== -1 ? siguienteDiaIndex : 0];
+      const [horas, minutos] = horarioObj.hora.split(":").map(Number);
+      proximaFecha.setHours(horas, minutos, 0, 0);
 
-            return res.json({
-                mensaje: "Sesión reprogramada y sesiones posteriores actualizadas",
-                sesion
-            });
+      // Desplazar sesiones posteriores
+      for (let i = index; i < sesiones.length; i++) {
+        sesiones[i].estado = "reprogramado"; // marcar como reprogramadas
+        if (i === sesiones.length - 1) {
+          // última sesión: actualizar a nueva fecha
+          sesiones[i].fecha = proximaFecha;
+        } else {
+          // desplazar fecha a la siguiente
+          sesiones[i].fecha = sesiones[i + 1].fecha;
         }
+        sesiones[i].reprogramaciones = (sesiones[i].reprogramaciones || 0) + 1;
+        await sesiones[i].save();
+      }
 
-        // Si no es reprogramada, actualizar normalmente
-        if (estado) sesion.estado = estado;
-        if (notas) sesion.notas = notas;
-        await sesion.save();
+      await sesion.save();
 
-        res.json(sesion);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+      return res.json({
+        mensaje: "Sesión reprogramada y sesiones posteriores desplazadas",
+        sesion,
+      });
     }
+
+    // 👉 CASO 2: Actualización normal
+    if (estado) sesion.estado = estado;
+    if (notas) sesion.notas = notas;
+    if (typeof asistio === "boolean") sesion.asistio = asistio;
+
+    await sesion.save();
+
+    res.json(sesion);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
 };
 
 /**
