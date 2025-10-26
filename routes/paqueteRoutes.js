@@ -12,6 +12,8 @@ router.post("/", crearPaquete);
 router.get("/", obtenerPaquetes);
 router.get("/:id", obtenerPaquetePorId);
 router.delete('/:id', eliminarPaquete);  // ← Agregar esta ruta
+router.put("/:id", actualizarPaquete); // 👈 agregar
+
 
 
 export default router;

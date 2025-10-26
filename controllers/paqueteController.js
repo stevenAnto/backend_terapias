@@ -162,3 +162,44 @@ export const eliminarPaquete = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+export const actualizarPaquete = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      nombre_paquete,
+      tutor,
+      ninio,
+      fecha_inicio,
+      fecha_fin,
+      numero_sesiones,
+      horarios,
+    } = req.body;
+
+    // Buscar paquete
+    const paquete = await Paquete.findById(id);
+    if (!paquete) {
+      return res.status(404).json({ error: "Paquete no encontrado" });
+    }
+
+    // Actualizar campos básicos
+    if (nombre_paquete) paquete.nombre_paquete = nombre_paquete;
+    if (tutor) paquete.tutor = tutor;
+    if (ninio) paquete.ninio = ninio;
+    if (fecha_inicio) paquete.fecha_inicio = fecha_inicio;
+    if (fecha_fin) paquete.fecha_fin = fecha_fin;
+    if (numero_sesiones) paquete.numero_sesiones = numero_sesiones;
+    if (horarios && Array.isArray(horarios)) paquete.horarios = horarios;
+
+    await paquete.save();
+
+    res.json({
+      mensaje: "✅ Paquete actualizado correctamente",
+      paquete,
+    });
+  } catch (error) {
+    console.error("Error al actualizar paquete:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
