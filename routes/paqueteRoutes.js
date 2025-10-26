@@ -3,7 +3,8 @@ import {
   crearPaquete,
   obtenerPaquetes,
   obtenerPaquetePorId,
-  eliminarPaquete
+  eliminarPaquete,
+  actualizarPaquete
 } from "../controllers/paqueteController.js";
 
 const router = express.Router();
