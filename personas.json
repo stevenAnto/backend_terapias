@@ -1,0 +1,37 @@
+[
+  { "nombre": "Adriano", "dni": "01", "celular": "" },
+  { "nombre": "Papa_Adriano", "dni": "101", "celular": "" },
+
+  { "nombre": "Arian", "dni": "02", "celular": "" },
+  { "nombre": "Papa_Arian", "dni": "102", "celular": "" },
+
+  { "nombre": "Estefan", "dni": "03", "celular": "" },
+  { "nombre": "Papa_Estefan", "dni": "103", "celular": "" },
+
+  { "nombre": "Evaluna", "dni": "04", "celular": "" },
+  { "nombre": "Papa_Evaluna", "dni": "104", "celular": "" },
+
+  { "nombre": "Enzi", "dni": "05", "celular": "" },
+  { "nombre": "Papa_Enzi", "dni": "105", "celular": "" },
+
+  { "nombre": "Neythan", "dni": "06", "celular": "" },
+  { "nombre": "Papa_Neythan", "dni": "106", "celular": "" },
+
+  { "nombre": "Jose", "dni": "07", "celular": "" },
+  { "nombre": "Papa_Jose", "dni": "107", "celular": "" },
+
+  { "nombre": "Kassandra", "dni": "08", "celular": "" },
+  { "nombre": "Papa_Kassandra", "dni": "108", "celular": "" },
+
+  { "nombre": "Santiago", "dni": "09", "celular": "" },
+  { "nombre": "Papa_Santiago", "dni": "109", "celular": "" },
+
+  { "nombre": "Juana", "dni": "10", "celular": "" },
+  { "nombre": "Papa_Juana", "dni": "110", "celular": "" },
+
+  { "nombre": "Thais", "dni": "11", "celular": "" },
+  { "nombre": "Papa_Thais", "dni": "111", "celular": "" },
+
+  { "nombre": "Yenko", "dni": "12", "celular": "" },
+  { "nombre": "Papa_Yenko", "dni": "112", "celular": "" }
+]

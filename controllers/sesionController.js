@@ -75,12 +75,13 @@ export const actualizarSesion = async (req, res) => {
         sesiones[i].reprogramaciones = (sesiones[i].reprogramaciones || 0) + 1;
         await sesiones[i].save();
       }
+      const sesionActualizada = await Sesion.findById(id);
 
       await sesion.save();
 
       return res.json({
         mensaje: "Sesión reprogramada y sesiones posteriores desplazadas",
-        sesion,
+        sesion:sesionActualizada,
       });
     }
 

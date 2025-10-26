@@ -1,0 +1,132 @@
+[
+  {
+    "nombre_paquete": "Terapia 1",
+    "tutor": "68fd946601c24a94d780e00b",
+    "ninio": "68fd946501c24a94d780e009",
+    "horarios": [
+      { "dia_semana": "Martes", "hora": "15:00" },
+      { "dia_semana": "Jueves", "hora": "15:00" }
+    ],
+    "fecha_inicio": "2025-10-21",
+    "numero_sesiones": 10
+  },
+  {
+    "nombre_paquete": "Terapia 2",
+    "tutor": "68fd946601c24a94d780e00f",
+    "ninio": "68fd946601c24a94d780e00d",
+    "horarios": [
+      { "dia_semana": "Miércoles", "hora": "14:45" }
+    ],
+    "fecha_inicio": "2025-09-24",
+    "numero_sesiones": 6
+  },
+  {
+    "nombre_paquete": "Terapia 3",
+    "tutor": "68fd946601c24a94d780e013",
+    "ninio": "68fd946601c24a94d780e011",
+    "horarios": [
+      { "dia_semana": "Jueves", "hora": "18:00" },
+      { "dia_semana": "Viernes", "hora": "4:45" }
+    ],
+    "fecha_inicio": "2025-09-25",
+    "numero_sesiones": 10
+  },
+  {
+    "nombre_paquete": "Terapia 4",
+    "tutor": "68fd946701c24a94d780e017",
+    "ninio": "68fd946601c24a94d780e015",
+    "horarios": [
+      { "dia_semana": "Martes", "hora": "18:00" },
+      { "dia_semana": "Jueves", "hora": "17:15" },
+      { "dia_semana": "Viernes", "hora": "18:30" }
+    ],
+    "fecha_inicio": "2025-10-07",
+    "numero_sesiones": 10
+  },
+  {
+    "nombre_paquete": "Terapia 5",
+    "tutor": "68fd946701c24a94d780e01b",
+    "ninio": "68fd946701c24a94d780e019",
+    "horarios": [
+      { "dia_semana": "Lunes", "hora": "16:30" },
+      { "dia_semana": "Jueves", "hora": "16:30" }
+    ],
+    "fecha_inicio": "2025-10-23",
+    "numero_sesiones": 10
+  },
+  {
+    "nombre_paquete": "Terapia 6",
+    "tutor": "68fd946701c24a94d780e01f",
+    "ninio": "68fd946701c24a94d780e01d",
+    "horarios": [
+      { "dia_semana": "Martes", "hora": "16:30" },
+      { "dia_semana": "Miércoles", "hora": "18:15" }
+    ],
+    "fecha_inicio": "2025-10-07",
+    "numero_sesiones": 10
+  },
+  {
+    "nombre_paquete": "Terapia 7",
+    "tutor": "68fd946701c24a94d780e023",
+    "ninio": "68fd946701c24a94d780e021",
+    "horarios": [
+      { "dia_semana": "Lunes", "hora": "18:30" },
+      { "dia_semana": "Jueves", "hora": "19:00" }
+    ],
+    "fecha_inicio": "2025-10-02",
+    "numero_sesiones": 8
+  },
+  {
+    "nombre_paquete": "Terapia 8",
+    "tutor": "68fd946801c24a94d780e027",
+    "ninio": "68fd946701c24a94d780e025",
+    "horarios": [],
+    "fecha_inicio": "2025-10-01",
+    "numero_sesiones": 0
+  },
+  {
+    "nombre_paquete": "Terapia 9",
+    "tutor": "68fd946801c24a94d780e02b",
+    "ninio": "68fd946801c24a94d780e029",
+    "horarios": [
+      { "dia_semana": "Lunes", "hora": "15:45" },
+      { "dia_semana": "Martes", "hora": "15:45" },
+      { "dia_semana": "Jueves", "hora": "15:45" }
+    ],
+    "fecha_inicio": "2025-09-23",
+    "numero_sesiones": 8
+  },
+  {
+    "nombre_paquete": "Terapia 10",
+    "tutor": "68fd946801c24a94d780e02f",
+    "ninio": "68fd946801c24a94d780e02d",
+    "horarios": [
+      { "dia_semana": "Martes", "hora": "17:15" },
+      { "dia_semana": "Viernes", "hora": "15:15" }
+    ],
+    "fecha_inicio": "2025-09-30",
+    "numero_sesiones": 9
+  },
+  {
+    "nombre_paquete": "Terapia 11",
+    "tutor": "68fd946801c24a94d780e033",
+    "ninio": "68fd946801c24a94d780e031",
+    "horarios": [
+      { "dia_semana": "Lunes", "hora": "15:00" },
+      { "dia_semana": "Miércoles", "hora": "15:30" }
+    ],
+    "fecha_inicio": "2025-09-17",
+    "numero_sesiones": 10
+  },
+  {
+    "nombre_paquete": "Terapia 12",
+    "tutor": "68fd946901c24a94d780e037",
+    "ninio": "68fd946801c24a94d780e035",
+    "horarios": [
+      { "dia_semana": "Miércoles", "hora": "17:30" },
+      { "dia_semana": "Viernes", "hora": "17:30" }
+    ],
+    "fecha_inicio": "2025-09-19",
+    "numero_sesiones": 10
+  }
+]
